@@ -1,1 +1,1 @@
-console.log("hello world"); 
+fix: correct typo in hello world log
