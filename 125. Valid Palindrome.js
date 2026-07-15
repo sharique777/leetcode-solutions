@@ -12,7 +12,7 @@ let firstHalf=""
 let lastHalf=""
 for (let i = 0 ; i < max; i++){
   firstHalf+=s[i]
-  lastHalf+=s[max-1-i]
+  lastHalf=s[max-1-i]+lastHalf
 }
 
 return firstHalf===lastHalf
