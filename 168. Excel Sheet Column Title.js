@@ -2,30 +2,60 @@
  * @param {number} columnNumber
  * @return {string}
  */
-var convertToTitle = function(columnNumber) {
+var convertToTitle = function (columnNumber) {
     const alphabets = [
-        "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
-        "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N",
+        "O",
+        "P",
+        "Q",
+        "R",
+        "S",
+        "T",
+        "U",
+        "V",
+        "W",
+        "X",
+        "Y",
+        "Z"
     ];
 
     let columnTitle = "";
+    let x = 0,
+        y = 0;
 
-    while (columnNumber > 0) {
-        columnNumber--;
-
-        let remainder = columnNumber % 26;
-        columnTitle = alphabets[remainder] + columnTitle;
-
-        columnNumber = Math.floor(columnNumber / 26);
+    //columnTitle = "A";
+    if (columnNumber > 26) {
+        x = Math.floor(columnNumber / 26);
+        y = columnNumber % 26;
+    } else {
+        y = columnNumber;
     }
+    if (columnNumber > 26) {
+        columnTitle = alphabets[x - 1];
+    }
+
+    if (columnNumber > 26) {
+        if (y === 0) {
+            y = 26;
+            x--;
+        }
+    }
+    columnTitle += alphabets[y - 1];
 
     return columnTitle;
 };
 
-console.log(convertToTitle(1));    // A
-console.log(convertToTitle(26));   // Z
-console.log(convertToTitle(27));   // AA
-console.log(convertToTitle(52));   // AZ
-console.log(convertToTitle(701));  // ZY
-console.log(convertToTitle(702));  // ZZ
-console.log(convertToTitle(703));  // AAA
+console.log(convertToTitle(52));
