@@ -1,0 +1,130 @@
+<head>
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+        }
+        .container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 1px;
+        }
+
+        .container div {
+            border: 1px solid black;
+            width: 25px;
+            height: 25px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 35px;
+            text-align: center;
+            font-size: 40px;
+            cursor: pointer;
+            border-radius: 2000px;
+            background-color: lightblue;
+            color: black;
+        }
+
+        #display {
+            /* border: 1px solid black; */
+            padding: 50px;
+            margin-bottom: 10px;
+            min-height: 20px;
+            font-size: 65px;
+            color: white;
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="display"></div>
+
+    <div class="container">
+        <div>AC</div>
+        <div>()</div>
+        <div>%</div>
+        <div>÷</div>
+
+        <div>7</div>
+        <div>8</div>
+        <div>9</div>
+        <div>×</div>
+
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+        <div>-</div>
+
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>+</div>
+
+        <div>0</div>
+        <div>.</div>
+        <div>⌫</div>
+        <div>=</div>
+    </div>
+
+    <script>
+        const buttons = document.querySelectorAll(".container div");
+        const display = document.getElementById("display");
+
+        let inputToShow = [];
+        let inputToCal = [];
+        let expression = 0;
+
+        buttons.forEach(button => {
+            button.onclick = () => {
+                const value = button.textContent;
+
+                if (value === "AC") {
+                    inputToShow = [];
+                    inputToCal = [];
+                } else if (value === "=") {
+                    expression = eval(inputToCal.join(""));
+                    display.textContent = expression;
+
+                    inputToShow = [];
+                    inputToShow.push(expression);
+                    inputToCal = [...inputToShow];
+
+                    return;
+                } else if (value === "⌫") {
+                    inputToShow.pop();
+                    inputToCal.pop();
+                } else if (
+                    (value == "." &&
+                        !inputToShow.includes(".") &&
+                        !/\d/.test(value) &&
+                        /\d/.test(inputToCal[inputToCal.length - 1])) ||
+                    (value != "." &&
+                        !/\d/.test(value) &&
+                        /\d/.test(inputToCal[inputToCal.length - 1])) ||
+                    /\d/.test(value)
+                ) {
+                    inputToShow.push(value);
+                    inputToCal.push(value);
+                }
+
+                display.textContent = inputToShow.join("");
+
+                if (value === "÷") {
+                    inputToCal[inputToCal.length - 1] = "/";
+                } else if (value === "×") {
+                    inputToCal[inputToCal.length - 1] = "*";
+                } else if (value === "%") {
+                    inputToCal[inputToCal.length - 1] = "/100*";
+                }
+            };
+        });
+    </script>
+</body>
