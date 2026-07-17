@@ -2,23 +2,30 @@
  * @param {number[]} prices
  * @return {number}
  */
-var maxProfit = function(prices) {
+var maxProfit = function (prices) {
     let profits = [];
-    let laterDayProfits=[...prices]
+    let laterDayProfits = [...prices];
+
+    laterDayProfits.sort((a, b) => a - b);
+
+    let laterDayProfitsIndex = [];
+    for (let i = 0; i < laterDayProfits.length; i++) {
+        laterDayProfitsIndex[laterDayProfits[i]] = i;
+    }
 
     for (let i = 0; i < prices.length; i++) {
-      laterDayProfits.shift()
-    
-        //for (let j = i; j < prices.length; j++) {
-            profits.push(Math.max(...laterDayProfits)-prices[i]);
-            
-        //}
+        laterDayProfits.splice(laterDayProfits.indexOf([prices[i]]), 1);
+
+        if (laterDayProfits.length > 0) {
+            profits.push(
+                laterDayProfits[laterDayProfits.length - 1] - prices[i]
+            );
         }
-let maxProfit=Math.max(...profits);
-    if (maxProfit > 0) {
-    return maxProfit
-} else {
-  return 0
+    }
+
+    let maxProfit = Math.max(...profits);
+
+    return maxProfit > 0 ? maxProfit : 0;
 };
-}
-console.log(maxProfit([7,1,5,3,6,4]));
+
+console.log(maxProfit([7, 1, 5, 3, 6, 4]));
