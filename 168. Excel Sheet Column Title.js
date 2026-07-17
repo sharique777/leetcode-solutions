@@ -33,40 +33,17 @@ var convertToTitle = function (columnNumber) {
     ];
 
     let columnTitle = "";
-    let x = 0,
-        y = 0
 
-    let no = 0;
-    let divided = false;
+    while (columnNumber > 0) {
+        columnNumber--;
 
-    while (columnNumber >= -1) {
+        columnTitle =
+            alphabets[columnNumber % 26] + columnTitle;
 
-//        if (columnNumber > 26) {
-
-            if (columnNumber % 26 - 1 == -1) {
-                columnTitle = "Z" + columnTitle;
-            } else {
-                columnTitle = alphabets[columnNumber % 26 - 1] + columnTitle;
-            }
-
-            if (divided) {
-                columnNumber -= 26;
-                divided = false;
-            }
-
-            columnNumber -= columnNumber % 26;
-
-            if (columnNumber >= 26) {
-                columnNumber /= 26;
-                divided = true;
-                //console.log(columnNumber);
-            } else {
-                break;
-            }
-        //}
+        columnNumber = Math.floor(columnNumber / 26);
     }
 
     return columnTitle;
 };
 
-console.log(convertToTitle(702));
+console.log(convertToTitle(18278));
