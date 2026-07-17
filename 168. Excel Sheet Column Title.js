@@ -36,7 +36,7 @@ var convertToTitle = function (columnNumber) {
     let x = 0,
         y = 0;
 
-    //columnTitle = "A";
+   /* //columnTitle = "A";
     if (columnNumber > 26) {
         x = Math.floor(columnNumber / 26);
         y = columnNumber % 26;
@@ -54,7 +54,23 @@ var convertToTitle = function (columnNumber) {
         }
     }
     columnTitle += alphabets[y - 1];
+*/
+let no=0;
+while (columnNumber>26){
+columnNumber-=26
+no++
+const n = Math.log(25 * no + 1) / Math.log(26) - 1;
 
+if (Number.isInteger(n)) {
+columnTitle+=alphabets[(no%26)]//+columnTitle
+    //no=0
+}
+//if (no% 26==0) {
+    //columnTitle+=alphabets[(no%26)+1]//+columnTitle
+    no=0
+//} 
+}
+columnTitle+=alphabets[columnNumber]
     return columnTitle;
 };
 
