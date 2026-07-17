@@ -2,21 +2,23 @@
  * @param {number[]} prices
  * @return {number}
  */
-var maxProfit = function (prices) {
+var maxProfit = function(prices) {
     let profits = [];
-    let maxProfit=-Infinity
-    let currentProfit=0;
+    let laterDayProfits=[...prices]
 
     for (let i = 0; i < prices.length; i++) {
-        for (let j = i; j < prices.length; j++) {
-          currentProfit=prices[j] - prices[i]
-          if (maxProfit < currentProfit) {
-    maxProfit=currentProfit
-} 
-            //profits.push(prices[j] - prices[i]);
+      laterDayProfits.shift()
+    
+        //for (let j = i; j < prices.length; j++) {
+            profits.push(Math.max(...laterDayProfits)-prices[i]);
+            
+        //}
         }
-    }
-
-    return maxProfit;
+let maxProfit=Math.max(...profits);
+    if (maxProfit > 0) {
+    return maxProfit
+} else {
+  return 0
 };
-console.log(maxProfit([7, 1, 5, 3, 6, 4]));
+}
+console.log(maxProfit([7,1,5,3,6,4]));
